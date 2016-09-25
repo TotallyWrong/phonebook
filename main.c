@@ -3,7 +3,7 @@
 #include <string.h>
 #include <time.h>
 #include <assert.h>
-hello
+Testing hello world
 #include IMPL
 
 #define DICT_FILE "./dictionary/words.txt"

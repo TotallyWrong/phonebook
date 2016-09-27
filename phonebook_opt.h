@@ -19,7 +19,7 @@ typedef struct __PHONE_BOOK_DAENTRY {
     char city[16];
     char zip[5];
 } daentry;
-    
+
 typedef struct __PHONE_BOOK_ENTRY {
     char lastName[MAX_LAST_NAME_SIZE];
     daentry *pData;

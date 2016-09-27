@@ -3,7 +3,7 @@
 #include <string.h>
 #include <time.h>
 #include <assert.h>
-Testing
+
 #include IMPL
 
 #define DICT_FILE "./dictionary/words.txt"
@@ -46,13 +46,36 @@ int main(int argc, char *argv[])
 #if defined(__GNUC__)
     __builtin___clear_cache((char *) pHead, (char *) pHead + sizeof(entry));
 #endif
+
+/* Define a Table for store location of the first character*/
+
+#if defined(OPT)
+//int j;
+char fichl='b';
+entry *Alpha[26];
+Alpha[0]=pHead;
+#endif
+/*-------------------------------------------------------*/
+
     clock_gettime(CLOCK_REALTIME, &start);
     while (fgets(line, sizeof(line), fp)) {
         while (line[i] != '\0')
             i++;
         line[i - 1] = '\0';
         i = 0;
-        e = append(line, e);
+       e = append(line, e);
+
+/* Store The location of first word of each alphabet */
+
+#if defined(OPT)       
+	if(fichl == line[0]){
+        //j= fichl-'a';
+        Alpha[fichl-'a']= e; 
+	fichl++;   
+	}
+// printf("3");
+#endif
+/*------------------------------------------------*/ 
     }
     clock_gettime(CLOCK_REALTIME, &end);
     cpu_time1 = diff_in_second(start, end);
@@ -64,7 +87,16 @@ int main(int argc, char *argv[])
 
     /* the givn last name to find */
     char input[MAX_LAST_NAME_SIZE] = "zyxel";
+
+/* Pick a better start point for e */
+#if defined(OPT)
+	//j= input[0]-'a';
+	e=Alpha[input[0]-'a'];
+//	printf("%d",j);
+#else 
     e = pHead;
+#endif
+/*--------------------------------*/
 
     assert(findName(input, e) &&
            "Did you implement findName() in " IMPL "?");
